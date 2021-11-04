@@ -23,6 +23,7 @@
             android:src="@drawable/ic_launcher_background"/>
 
         <TextView
+            android:id="@+id/meme_top_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -34,6 +35,7 @@
             app:layout_constraintTop_toTopOf="@+id/meme_template_view" />
 
         <TextView
+            android:id="@+id/meme_bottom_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
