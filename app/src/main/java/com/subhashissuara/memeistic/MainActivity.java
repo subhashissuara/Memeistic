@@ -11,7 +11,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -79,12 +78,12 @@ public class MainActivity extends AppCompatActivity {
                 switch (currentColor){
                     case Color.WHITE:
                         memeTopText.setTextColor(Color.BLACK);
+                        memeBottomText.setTextColor(Color.BLACK);
                         break;
                     case Color.BLACK:
-                        memeTopText.setTextColor(Color.WHITE);
-                        break;
                     default:
                         memeTopText.setTextColor(Color.WHITE);
+                        memeBottomText.setTextColor(Color.WHITE);
                 }
             }
         });
