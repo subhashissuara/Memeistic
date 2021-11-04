@@ -11,6 +11,7 @@
         android:layout_width="370dp"
         android:layout_height="370dp"
         android:layout_marginTop="15dp"
+        android:tooltipText="Drag top or bottom meme text to move them"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -19,8 +20,8 @@
             android:id="@+id/meme_template_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_launcher_background"/>
+            android:scaleType="fitCenter"
+            android:src="@drawable/memeistic_placeholder"/>
 
         <TextView
             android:id="@+id/meme_top_text"
@@ -101,16 +102,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_layout_1">
 
+        <Button
+            android:id="@+id/retry_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/retry_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/font_size_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/font_size_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/change_meme_text_color_button"
+            app:layout_constraintStart_toEndOf="@+id/retry_button"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/change_meme_text_color_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:layout_marginEnd="10dp"
             android:text="@string/meme_text_color_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -138,5 +157,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/credits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="&#169; 2021 Made By Subhashis Suara &amp; Aayush Jha"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

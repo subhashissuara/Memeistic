@@ -8,6 +8,8 @@
     <!--  Buttons  -->
     <string name="open_button">Open</string>
     <string name="save_button">Save</string>
+    <string name="retry_button">Retry</string>
     <string name="share_button">Share Meme</string>
-    <string name="meme_text_color_button">Change Meme Text Color</string>
+    <string name="meme_text_color_button">Text Color</string>
+    <string name="font_size_button">Font Size</string>
 </resources>
