@@ -7,9 +7,11 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,9 +58,11 @@ public class MainActivity extends AppCompatActivity {
 
         memeTemplateView = (ImageView) findViewById(R.id.meme_template_view);
 
+
         // Disable Save & Share Buttons Initially
         saveButton.setEnabled(false);
         shareButton.setEnabled(false);
+
 
         // Button onClick Listeners
         openButton.setOnClickListener(new View.OnClickListener() {
@@ -71,9 +75,20 @@ public class MainActivity extends AppCompatActivity {
         changeMemeTextColorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                int currentColor = memeTopText.getCurrentTextColor();
+                switch (currentColor){
+                    case Color.WHITE:
+                        memeTopText.setTextColor(Color.BLACK);
+                        break;
+                    case Color.BLACK:
+                        memeTopText.setTextColor(Color.WHITE);
+                        break;
+                    default:
+                        memeTopText.setTextColor(Color.WHITE);
+                }
             }
         });
+
 
         // Text onChange Listeners
         memeTopTextInput.addTextChangedListener(new TextWatcher() {
