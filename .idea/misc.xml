@@ -3,8 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/EverythingCS/AppDev/AndroidNative/Memeistic/app/src/main/res/drawable/app_background.xml" value="0.1425925925925926" />
+        <entry key="..\:/EverythingCS/AppDev/AndroidNative/Memeistic/app/src/main/res/drawable/ic_app_logo_background.xml" value="0.1425925925925926" />
+        <entry key="..\:/EverythingCS/AppDev/AndroidNative/Memeistic/app/src/main/res/drawable/splash_background.xml" value="0.1" />
         <entry key="..\:/EverythingCS/AppDev/AndroidNative/Memeistic/app/src/main/res/layout/activity_editor.xml" value="0.1721014492753623" />
         <entry key="..\:/EverythingCS/AppDev/AndroidNative/Memeistic/app/src/main/res/layout/activity_main.xml" value="0.22282608695652173" />
+        <entry key="..\:/EverythingCS/AppDev/AndroidNative/Memeistic/app/src/main/res/layout/app_background.xml" value="0.1875" />
+        <entry key="..\:/EverythingCS/AppDev/AndroidNative/Memeistic/app/src/main/res/mipmap-anydpi-v26/ic_app_logo.xml" value="0.1425925925925926" />
+        <entry key="..\:/EverythingCS/AppDev/AndroidNative/Memeistic/app/src/main/res/mipmap-anydpi-v26/ic_app_logo_round.xml" value="0.1425925925925926" />
+        <entry key="..\:/EverythingCS/AppDev/AndroidNative/Memeistic/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1425925925925926" />
+        <entry key="..\:/EverythingCS/AppDev/AndroidNative/Memeistic/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1425925925925926" />
       </map>
     </option>
   </component>
