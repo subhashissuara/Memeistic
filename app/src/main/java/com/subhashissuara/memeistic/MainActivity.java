@@ -276,6 +276,7 @@ public class MainActivity extends AppCompatActivity {
             changeMemeTextColorButton.setEnabled(true);
             fontSizeButton.setEnabled(true);
             retryButton.setEnabled(true);
+            memeTemplateView.setBackgroundColor(getResources().getColor(R.color.black));
         }
     }
 
