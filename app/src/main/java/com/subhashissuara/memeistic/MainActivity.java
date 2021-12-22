@@ -22,6 +22,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -40,6 +41,10 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.skydoves.colorpickerview.ColorEnvelope;
+import com.skydoves.colorpickerview.ColorPickerDialog;
+import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
@@ -50,9 +55,9 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
     private static final int APP_PERMISSION_CODE = 10;
 
-    Button openButton, saveButton, shareButton, changeMemeTextColorButton, fontSizeButton, retryButton;
+    Button openButton, saveButton, shareButton, changeMemeTextColorButton, fontSizeButton, retryButton, filterButton;
     EditText memeTopTextInput, memeBottomTextInput;
-    TextView memeTopText, memeBottomText;
+    TextView memeTopText, memeBottomText, memeCopyrightText;
     ImageView memeTemplateView;
 
     String currentMemeFile = "";
@@ -71,12 +76,14 @@ public class MainActivity extends AppCompatActivity {
         changeMemeTextColorButton = (Button) findViewById(R.id.change_meme_text_color_button);
         fontSizeButton = (Button) findViewById(R.id.font_size_button);
         retryButton = (Button) findViewById(R.id.retry_button);
+        filterButton = (Button) findViewById(R.id.filter_button);
 
         memeTopTextInput = (EditText) findViewById(R.id.meme_top_text_input);
         memeBottomTextInput = (EditText) findViewById(R.id.meme_bottom_text_input);
 
         memeTopText = (TextView) findViewById(R.id.meme_top_text);
         memeBottomText = (TextView) findViewById(R.id.meme_bottom_text);
+        memeCopyrightText = (TextView) findViewById(R.id.meme_copyright_text);
 
         memeTemplateView = (ImageView) findViewById(R.id.meme_template_view);
 
@@ -87,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
         changeMemeTextColorButton.setEnabled(false);
         fontSizeButton.setEnabled(false);
         retryButton.setEnabled(false);
+        filterButton.setEnabled(false);
 
 
         // Button onClick Listeners
@@ -102,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                memeCopyrightText.setText("© Memeistic");
                 View memeLayout = findViewById(R.id.meme_template_layout);
                 Bitmap memeSS = takeScreenshot(memeLayout);
                 currentMemeFile = System.currentTimeMillis() + "_meme.png";
@@ -120,29 +129,52 @@ public class MainActivity extends AppCompatActivity {
         changeMemeTextColorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final CharSequence[] optionsMenu = {"Black", "White"};
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("Choose Font Color");
-                builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                });
-                builder.setItems(optionsMenu, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (optionsMenu[i].equals("Black")){
-                            memeTopText.setTextColor(Color.BLACK);
-                            memeBottomText.setTextColor(Color.BLACK);
-                        }
-                        if (optionsMenu[i].equals("White")){
-                            memeTopText.setTextColor(Color.WHITE);
-                            memeBottomText.setTextColor(Color.WHITE);
-                        }
-                    }
-                });
-                builder.show();
+                new ColorPickerDialog.Builder(MainActivity.this)
+                        .setTitle("Choose Meme Text Color")
+                        .setPreferenceName("MemeTextColor")
+                        .setPositiveButton(getString(R.string.confirm),
+                                new ColorEnvelopeListener() {
+                                    @Override
+                                    public void onColorSelected(ColorEnvelope envelope, boolean fromUser) {
+                                        memeTopText.setTextColor(envelope.getColor());
+                                        memeBottomText.setTextColor(envelope.getColor());
+                                        memeCopyrightText.setTextColor(envelope.getColor());
+                                    }
+                                })
+                        .setNegativeButton(getString(R.string.cancel),
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.dismiss();
+                                    }
+                                })
+                        .attachAlphaSlideBar(true) // the default value is true.
+                        .attachBrightnessSlideBar(true)  // the default value is true.
+                        .setBottomSpace(12) // set a bottom space between the last slidebar and buttons.
+                        .show();
+//                final CharSequence[] optionsMenu = {"Black", "White"};
+//                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//                builder.setTitle("Choose Font Color");
+//                builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        dialogInterface.dismiss();
+//                    }
+//                });
+//                builder.setItems(optionsMenu, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        if (optionsMenu[i].equals("Black")){
+//                            memeTopText.setTextColor(Color.BLACK);
+//                            memeBottomText.setTextColor(Color.BLACK);
+//                        }
+//                        if (optionsMenu[i].equals("White")){
+//                            memeTopText.setTextColor(Color.WHITE);
+//                            memeBottomText.setTextColor(Color.WHITE);
+//                        }
+//                    }
+//                });
+//                builder.show();
             }
         });
 
@@ -177,6 +209,36 @@ public class MainActivity extends AppCompatActivity {
                 Intent mainActivity = new Intent(MainActivity.this, MainActivity.class);
                 startActivity(mainActivity);
                 finish();
+            }
+        });
+
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final CharSequence[] optionsMenu = {"Red", "Blue", "Yellow"};
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Choose Filter");
+                builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.setItems(optionsMenu, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (optionsMenu[i].equals("Red")){
+                            memeTemplateView.setColorFilter(Color.RED, PorterDuff.Mode.LIGHTEN);
+                        }
+                        if (optionsMenu[i].equals("Blue")){
+                            memeTemplateView.setColorFilter(Color.BLUE, PorterDuff.Mode.LIGHTEN);
+                        }
+                        if (optionsMenu[i].equals("Yellow")){
+                            memeTemplateView.setColorFilter(Color.YELLOW, PorterDuff.Mode.LIGHTEN);
+                        }
+                    }
+                });
+                builder.show();
             }
         });
 
@@ -276,6 +338,7 @@ public class MainActivity extends AppCompatActivity {
             changeMemeTextColorButton.setEnabled(true);
             fontSizeButton.setEnabled(true);
             retryButton.setEnabled(true);
+            filterButton.setEnabled(true);
             memeTemplateView.setBackgroundColor(getResources().getColor(R.color.black));
         }
     }
